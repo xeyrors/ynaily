@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { getThumbnails } from "@/lib/actions/gallery";
 import { ThumbnailCard } from "./thumbnail-card";
@@ -22,9 +22,6 @@ export function GalleryGrid() {
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [lastParams, setLastParams] = useState("");
-
-  const currentParams = `${activeSort}-${activeCategory}-${activeStyle}-${searchQuery}`;
 
   const fetchThumbnails = useCallback(async () => {
     setLoading(true);
@@ -39,12 +36,12 @@ export function GalleryGrid() {
     setThumbnails(result.data);
     setTotal(result.total);
     setLoading(false);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
   }, [activeSort, activeCategory, activeStyle, searchQuery]);
 
-  if (lastParams !== currentParams) {
-    setLastParams(currentParams);
+  useEffect(() => {
     fetchThumbnails();
-  }
+  }, [fetchThumbnails]);
 
   const selectedThumbnail = useMemo(
     () => thumbnails.find((t) => t.id === selectedId) ?? null,

@@ -14,8 +14,8 @@ export function FilterChip({ label, active, onClick, className }: FilterChipProp
       className={cn(
         "px-2 py-0.5 text-[11px] transition-colors rounded-full",
         active
-          ? "bg-[#6366f1]/15 text-[#818cf8]"
-          : "text-[#52525b] hover:text-[#a1a1aa]",
+          ? "bg-primary/10 text-primary"
+          : "text-muted-foreground/50 hover:text-muted-foreground",
         className
       )}
     >

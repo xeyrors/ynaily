@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Providers } from "@/components/providers";
 import "./globals.css";
 
 const inter = Inter({
@@ -32,17 +33,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} dark h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-[#0a0a0a]">
-        <TooltipProvider>
-          {children}
-        </TooltipProvider>
-        <Toaster
-          position="bottom-right"
-          toastOptions={{
-            className: "bg-[#171717] border-[#27272a] text-[#f1f1f1]",
-          }}
-        />
+    <html lang="en" className={`${inter.variable} h-full antialiased`} suppressHydrationWarning>
+      <body className="min-h-full flex flex-col bg-background text-foreground">
+        <Providers>
+          <TooltipProvider>
+            {children}
+          </TooltipProvider>
+        </Providers>
+        <Toaster position="bottom-right" />
       </body>
     </html>
   );

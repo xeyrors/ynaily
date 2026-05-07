@@ -22,9 +22,9 @@ export function ThumbnailCard({ thumbnail, index, onSelect }: ThumbnailCardProps
     >
       <button
         onClick={() => onSelect(thumbnail)}
-        className="group relative w-full text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-[#6366f1]/50 rounded-md"
+        className="group relative w-full text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-primary/50 rounded-md"
       >
-        <div className="relative aspect-video overflow-hidden rounded-md bg-[#111111] transition-shadow duration-200 ease-out group-hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6)] group-hover:ring-1 group-hover:ring-white/[0.08]">
+        <div className="relative aspect-video overflow-hidden rounded-md bg-muted transition-shadow duration-200 ease-out group-hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.5)] dark:group-hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6)] group-hover:ring-1 group-hover:ring-foreground/[0.06]">
           <Image
             src={thumbnail.thumbnail_url}
             alt={thumbnail.title}
@@ -35,7 +35,7 @@ export function ThumbnailCard({ thumbnail, index, onSelect }: ThumbnailCardProps
 
           {thumbnail.featured && (
             <div className="absolute top-1.5 left-1.5">
-              <span className="inline-flex items-center rounded-[3px] bg-[#6366f1]/90 px-1 py-px text-[9px] font-medium text-white leading-none">
+              <span className="inline-flex items-center rounded-[3px] bg-primary/90 px-1 py-px text-[9px] font-medium text-primary-foreground leading-none">
                 Featured
               </span>
             </div>
@@ -43,10 +43,10 @@ export function ThumbnailCard({ thumbnail, index, onSelect }: ThumbnailCardProps
         </div>
 
         <div className="mt-1.5 px-px">
-          <h3 className="line-clamp-1 text-[13px] font-medium leading-tight text-[#d4d4d8] group-hover:text-[#f1f1f1] transition-colors duration-150">
+          <h3 className="line-clamp-1 text-[13px] font-medium leading-tight text-foreground/80 group-hover:text-foreground transition-colors duration-150">
             {thumbnail.title}
           </h3>
-          <p className="mt-0.5 text-[11px] text-[#52525b] truncate">
+          <p className="mt-0.5 text-[11px] text-muted-foreground/60 truncate">
             {thumbnail.channel_name}
           </p>
         </div>

@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState, useRef, useEffect } from "react";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 
 const navLinks = [
   { href: "/gallery", label: "Gallery" },
@@ -38,7 +39,7 @@ export function Navbar() {
     pathname === "/gallery" || pathname === "/";
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#0a0a0a]">
+    <header className="sticky top-0 z-50 w-full bg-background">
       <div className="mx-auto flex h-12 max-w-[1600px] items-center justify-between px-4 sm:px-6">
         <Link href="/" className="text-[14px] font-semibold tracking-tight">
           <span className="text-[#6366f1]">y</span>naily
@@ -61,13 +62,13 @@ export function Navbar() {
                     setSearchValue("");
                   }
                 }}
-                className="h-7 w-48 rounded border border-[#27272a] bg-[#111111] px-2.5 text-[13px] text-[#d4d4d8] placeholder:text-[#3f3f46] focus:outline-none transition-colors"
+                className="h-7 w-48 rounded border border-border bg-secondary px-2.5 text-[13px] text-foreground placeholder:text-muted-foreground/50 focus:outline-none transition-colors"
               />
             </form>
           ) : (
             <button
               onClick={() => setSearchOpen(true)}
-              className="flex h-7 w-7 items-center justify-center rounded text-[#3f3f46] hover:text-[#71717a] transition-colors"
+              className="flex h-7 w-7 items-center justify-center rounded text-muted-foreground/40 hover:text-muted-foreground transition-colors"
             >
               <Search className="h-3.5 w-3.5" />
             </button>
@@ -83,14 +84,18 @@ export function Navbar() {
                 className={cn(
                   "px-2 py-1 text-[13px] transition-colors",
                   isActive
-                    ? "text-[#d4d4d8]"
-                    : "text-[#3f3f46] hover:text-[#71717a]"
+                    ? "text-foreground"
+                    : "text-muted-foreground/40 hover:text-muted-foreground"
                 )}
               >
                 {item.label}
               </Link>
             );
           })}
+
+          <div className="ml-1">
+            <ThemeSwitcher />
+          </div>
         </div>
       </div>
     </header>

@@ -53,7 +53,7 @@ export function GalleryFilters({
   const hasActive = activeCategory || activeStyle || searchQuery;
 
   return (
-    <div className="sticky top-14 z-40 bg-[#0a0a0a] -mx-4 sm:-mx-6 px-4 sm:px-6 pt-3 pb-2">
+    <div className="sticky top-12 z-40 bg-background -mx-4 sm:-mx-6 px-4 sm:px-6 pt-3 pb-2">
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-0.5">
           {sortTabs.map((tab) => (
@@ -63,23 +63,23 @@ export function GalleryFilters({
               className={cn(
                 "px-2 py-1 text-[13px] transition-colors rounded",
                 activeSort === tab.value
-                  ? "text-[#f1f1f1]"
-                  : "text-[#52525b] hover:text-[#a1a1aa]"
+                  ? "text-foreground"
+                  : "text-muted-foreground/40 hover:text-muted-foreground"
               )}
             >
               {tab.label}
             </button>
           ))}
 
-          <span className="mx-1.5 text-[#27272a]">|</span>
+          <span className="mx-1.5 text-border">|</span>
 
           <button
             onClick={() => setFiltersOpen(!filtersOpen)}
             className={cn(
               "flex items-center gap-1 px-2 py-1 text-[13px] transition-colors rounded",
               filtersOpen || hasActive
-                ? "text-[#818cf8]"
-                : "text-[#52525b] hover:text-[#a1a1aa]"
+                ? "text-primary"
+                : "text-muted-foreground/40 hover:text-muted-foreground"
             )}
           >
             <SlidersHorizontal className="h-3 w-3" />
@@ -89,31 +89,31 @@ export function GalleryFilters({
 
         <div className="flex items-center gap-2">
           <form onSubmit={handleSearch} className="relative">
-            <Search className="absolute left-2 top-1/2 h-3 w-3 -translate-y-1/2 text-[#3f3f46]" />
+            <Search className="absolute left-2 top-1/2 h-3 w-3 -translate-y-1/2 text-muted-foreground/25" />
             <input
               placeholder="Search..."
               value={localSearch}
               onChange={(e) => setLocalSearch(e.target.value)}
-              className="h-7 w-36 rounded border border-transparent bg-transparent pl-7 pr-2 text-[13px] text-[#d4d4d8] placeholder:text-[#3f3f46] focus:border-[#27272a] focus:bg-[#111111] focus:outline-none transition-all"
+              className="h-7 w-36 rounded border border-transparent bg-transparent pl-7 pr-2 text-[13px] text-foreground placeholder:text-muted-foreground/25 focus:border-border focus:bg-secondary focus:outline-none transition-all"
             />
           </form>
 
-          <span className="text-[11px] text-[#3f3f46] tabular-nums">
+          <span className="text-[11px] text-muted-foreground/30 tabular-nums">
             {total}
           </span>
         </div>
       </div>
 
       {filtersOpen && (
-        <div className="mt-2 space-y-2.5 rounded-md border border-[#1a1a1a] bg-[#0f0f0f] p-3">
+        <div className="mt-2 space-y-2.5 rounded-md border border-border/50 bg-secondary/50 p-3">
           {hasActive && (
             <div className="flex items-center justify-between">
-              <span className="text-[10px] uppercase tracking-widest text-[#3f3f46]">
+              <span className="text-[10px] uppercase tracking-widest text-muted-foreground/40">
                 Active filters
               </span>
               <button
                 onClick={clearAll}
-                className="flex items-center gap-1 text-[11px] text-[#52525b] hover:text-[#a1a1aa] transition-colors"
+                className="flex items-center gap-1 text-[11px] text-muted-foreground/50 hover:text-muted-foreground transition-colors"
               >
                 <X className="h-2.5 w-2.5" />
                 Clear
@@ -122,7 +122,7 @@ export function GalleryFilters({
           )}
 
           <div className="space-y-1.5">
-            <p className="text-[10px] uppercase tracking-widest text-[#3f3f46]">
+            <p className="text-[10px] uppercase tracking-widest text-muted-foreground/40">
               Niche
             </p>
             <div className="flex flex-wrap gap-1">
@@ -142,7 +142,7 @@ export function GalleryFilters({
           </div>
 
           <div className="space-y-1.5">
-            <p className="text-[10px] uppercase tracking-widest text-[#3f3f46]">
+            <p className="text-[10px] uppercase tracking-widest text-muted-foreground/40">
               Pattern
             </p>
             <div className="flex flex-wrap gap-1">

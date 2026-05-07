@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { Search, ChevronDown, X } from "lucide-react";
+import { Search, X, SlidersHorizontal } from "lucide-react";
 import { FilterChip } from "@/components/ui/filter-chip";
 import { CATEGORIES, STYLE_TAGS, type SortOption } from "@/types";
 import { cn } from "@/lib/utils";
 
 const sortTabs: { value: SortOption; label: string }[] = [
-  { value: "hot", label: "Hot Picks" },
+  { value: "hot", label: "Hot" },
   { value: "latest", label: "Latest" },
-  { value: "most-liked", label: "Most Liked" },
+  { value: "most-liked", label: "Top" },
 ];
 
 interface GalleryFiltersProps {
@@ -53,116 +53,115 @@ export function GalleryFilters({
   const hasActive = activeCategory || activeStyle || searchQuery;
 
   return (
-    <div className="sticky top-14 z-40 border-b border-[#1a1a1a] bg-[#0a0a0a]/95 backdrop-blur-md -mx-4 sm:-mx-6 px-4 sm:px-6 py-3">
-      <div className="space-y-3">
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-1">
-            {sortTabs.map((tab) => (
-              <button
-                key={tab.value}
-                onClick={() => onSortChange(tab.value)}
-                className={cn(
-                  "rounded-md px-2.5 py-1.5 text-[13px] font-medium transition-colors",
-                  activeSort === tab.value
-                    ? "bg-[#1a1a1a] text-[#f1f1f1]"
-                    : "text-[#71717a] hover:text-[#a1a1aa] hover:bg-[#111111]"
-                )}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-2">
-            <form onSubmit={handleSearch} className="relative">
-              <Search className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#52525b]" />
-              <input
-                placeholder="Search..."
-                value={localSearch}
-                onChange={(e) => setLocalSearch(e.target.value)}
-                className="h-8 w-40 rounded-md border border-[#27272a] bg-[#111111] pl-8 pr-3 text-[13px] text-[#f1f1f1] placeholder:text-[#52525b] focus:border-[#6366f1] focus:outline-none focus:ring-1 focus:ring-[#6366f1]/50 transition-colors"
-              />
-            </form>
-
+    <div className="sticky top-14 z-40 bg-[#0a0a0a] -mx-4 sm:-mx-6 px-4 sm:px-6 pt-3 pb-2">
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-0.5">
+          {sortTabs.map((tab) => (
             <button
-              onClick={() => setFiltersOpen(!filtersOpen)}
+              key={tab.value}
+              onClick={() => onSortChange(tab.value)}
               className={cn(
-                "flex h-8 items-center gap-1.5 rounded-md border px-2.5 text-[13px] font-medium transition-colors",
-                filtersOpen
-                  ? "border-[#6366f1]/30 bg-[#6366f1]/10 text-[#818cf8]"
-                  : "border-[#27272a] text-[#71717a] hover:border-[#3f3f46] hover:text-[#a1a1aa]"
+                "px-2 py-1 text-[13px] transition-colors rounded",
+                activeSort === tab.value
+                  ? "text-[#f1f1f1]"
+                  : "text-[#52525b] hover:text-[#a1a1aa]"
               )}
             >
-              Filters
-              <ChevronDown
-                className={cn(
-                  "h-3 w-3 transition-transform",
-                  filtersOpen && "rotate-180"
-                )}
-              />
+              {tab.label}
             </button>
-          </div>
+          ))}
+
+          <span className="mx-1.5 text-[#27272a]">|</span>
+
+          <button
+            onClick={() => setFiltersOpen(!filtersOpen)}
+            className={cn(
+              "flex items-center gap-1 px-2 py-1 text-[13px] transition-colors rounded",
+              filtersOpen || hasActive
+                ? "text-[#818cf8]"
+                : "text-[#52525b] hover:text-[#a1a1aa]"
+            )}
+          >
+            <SlidersHorizontal className="h-3 w-3" />
+            {hasActive ? "Filtered" : "Filter"}
+          </button>
         </div>
 
-        {filtersOpen && (
-          <div className="space-y-3 rounded-lg border border-[#27272a] bg-[#111111] p-3">
+        <div className="flex items-center gap-2">
+          <form onSubmit={handleSearch} className="relative">
+            <Search className="absolute left-2 top-1/2 h-3 w-3 -translate-y-1/2 text-[#3f3f46]" />
+            <input
+              placeholder="Search..."
+              value={localSearch}
+              onChange={(e) => setLocalSearch(e.target.value)}
+              className="h-7 w-36 rounded border border-transparent bg-transparent pl-7 pr-2 text-[13px] text-[#d4d4d8] placeholder:text-[#3f3f46] focus:border-[#27272a] focus:bg-[#111111] focus:outline-none transition-all"
+            />
+          </form>
+
+          <span className="text-[11px] text-[#3f3f46] tabular-nums">
+            {total}
+          </span>
+        </div>
+      </div>
+
+      {filtersOpen && (
+        <div className="mt-2 space-y-2.5 rounded-md border border-[#1a1a1a] bg-[#0f0f0f] p-3">
+          {hasActive && (
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-medium uppercase tracking-wider text-[#52525b]">
-                {total} result{total !== 1 ? "s" : ""}
+              <span className="text-[10px] uppercase tracking-widest text-[#3f3f46]">
+                Active filters
               </span>
-              {hasActive && (
-                <button
-                  onClick={clearAll}
-                  className="flex items-center gap-1 text-[11px] text-[#71717a] hover:text-[#a1a1aa] transition-colors"
-                >
-                  <X className="h-3 w-3" />
-                  Clear
-                </button>
-              )}
+              <button
+                onClick={clearAll}
+                className="flex items-center gap-1 text-[11px] text-[#52525b] hover:text-[#a1a1aa] transition-colors"
+              >
+                <X className="h-2.5 w-2.5" />
+                Clear
+              </button>
             </div>
+          )}
 
-            <div className="space-y-2">
-              <p className="text-[11px] font-medium uppercase tracking-wider text-[#52525b]">
-                Niche
-              </p>
-              <div className="flex flex-wrap gap-1.5">
-                {CATEGORIES.map((cat) => (
-                  <FilterChip
-                    key={cat.value}
-                    label={cat.label}
-                    active={activeCategory === cat.value}
-                    onClick={() =>
-                      onCategoryChange(
-                        activeCategory === cat.value ? null : cat.value
-                      )
-                    }
-                  />
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <p className="text-[11px] font-medium uppercase tracking-wider text-[#52525b]">
-                Pattern
-              </p>
-              <div className="flex flex-wrap gap-1.5">
-                {STYLE_TAGS.map((tag) => (
-                  <FilterChip
-                    key={tag.value}
-                    label={tag.label}
-                    active={activeStyle === tag.value}
-                    onClick={() =>
-                      onStyleChange(
-                        activeStyle === tag.value ? null : tag.value
-                      )
-                    }
-                  />
-                ))}
-              </div>
+          <div className="space-y-1.5">
+            <p className="text-[10px] uppercase tracking-widest text-[#3f3f46]">
+              Niche
+            </p>
+            <div className="flex flex-wrap gap-1">
+              {CATEGORIES.map((cat) => (
+                <FilterChip
+                  key={cat.value}
+                  label={cat.label}
+                  active={activeCategory === cat.value}
+                  onClick={() =>
+                    onCategoryChange(
+                      activeCategory === cat.value ? null : cat.value
+                    )
+                  }
+                />
+              ))}
             </div>
           </div>
-        )}
-      </div>
+
+          <div className="space-y-1.5">
+            <p className="text-[10px] uppercase tracking-widest text-[#3f3f46]">
+              Pattern
+            </p>
+            <div className="flex flex-wrap gap-1">
+              {STYLE_TAGS.map((tag) => (
+                <FilterChip
+                  key={tag.value}
+                  label={tag.label}
+                  active={activeStyle === tag.value}
+                  onClick={() =>
+                    onStyleChange(
+                      activeStyle === tag.value ? null : tag.value
+                    )
+                  }
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

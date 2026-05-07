@@ -101,34 +101,34 @@
   .grid-gallery {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
+    gap: 4px;
   }
 
   @media (min-width: 640px) {
     .grid-gallery {
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      gap: 6px;
     }
   }
 
   @media (min-width: 768px) {
     .grid-gallery {
       grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      gap: 6px;
     }
   }
 
   @media (min-width: 1280px) {
     .grid-gallery {
       grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
+      gap: 8px;
     }
   }
 
   @media (min-width: 1536px) {
     .grid-gallery {
       grid-template-columns: repeat(6, 1fr);
-      gap: 12px;
+      gap: 8px;
     }
   }
 

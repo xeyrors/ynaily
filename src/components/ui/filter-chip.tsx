@@ -12,10 +12,10 @@ export function FilterChip({ label, active, onClick, className }: FilterChipProp
     <button
       onClick={onClick}
       className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium transition-colors",
+        "px-2 py-0.5 text-[11px] transition-colors rounded-full",
         active
-          ? "bg-[#6366f1] text-white"
-          : "border border-[#27272a] bg-transparent text-[#a1a1aa] hover:border-[#3f3f46] hover:text-[#f1f1f1]",
+          ? "bg-[#6366f1]/15 text-[#818cf8]"
+          : "text-[#52525b] hover:text-[#a1a1aa]",
         className
       )}
     >

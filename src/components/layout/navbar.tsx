@@ -10,7 +10,6 @@ const navLinks = [
   { href: "/gallery", label: "Gallery" },
   { href: "/submit", label: "Submit" },
   { href: "/about", label: "About" },
-  { href: "/admin", label: "Admin" },
 ];
 
 export function Navbar() {
@@ -39,47 +38,40 @@ export function Navbar() {
     pathname === "/gallery" || pathname === "/";
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[#1a1a1a] bg-[#0a0a0a]/90 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-[1600px] items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-1.5 group">
-          <span className="text-[15px] font-semibold tracking-tight">
-            <span className="text-[#6366f1]">y</span>naily
-          </span>
+    <header className="sticky top-0 z-50 w-full bg-[#0a0a0a]">
+      <div className="mx-auto flex h-12 max-w-[1600px] items-center justify-between px-4 sm:px-6">
+        <Link href="/" className="text-[14px] font-semibold tracking-tight">
+          <span className="text-[#6366f1]">y</span>naily
         </Link>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-0.5">
           {searchOpen ? (
             <form onSubmit={handleSearch} className="flex items-center">
-              <div className="relative">
-                <Search className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-[#71717a]" />
-                <input
-                  ref={inputRef}
-                  placeholder="Search thumbnails..."
-                  value={searchValue}
-                  onChange={(e) => setSearchValue(e.target.value)}
-                  onBlur={() => {
-                    if (!searchValue) setSearchOpen(false);
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Escape") {
-                      setSearchOpen(false);
-                      setSearchValue("");
-                    }
-                  }}
-                  className="h-8 w-52 rounded-md border border-[#27272a] bg-[#111111] pl-8 pr-3 text-sm text-[#f1f1f1] placeholder:text-[#52525b] focus:border-[#6366f1] focus:outline-none focus:ring-1 focus:ring-[#6366f1]/50 transition-colors"
-                />
-              </div>
+              <input
+                ref={inputRef}
+                placeholder="Search..."
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                onBlur={() => {
+                  if (!searchValue) setSearchOpen(false);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Escape") {
+                    setSearchOpen(false);
+                    setSearchValue("");
+                  }
+                }}
+                className="h-7 w-48 rounded border border-[#27272a] bg-[#111111] px-2.5 text-[13px] text-[#d4d4d8] placeholder:text-[#3f3f46] focus:outline-none transition-colors"
+              />
             </form>
           ) : (
             <button
               onClick={() => setSearchOpen(true)}
-              className="flex h-8 w-8 items-center justify-center rounded-md text-[#71717a] transition-colors hover:bg-[#1a1a1a] hover:text-[#a1a1aa]"
+              className="flex h-7 w-7 items-center justify-center rounded text-[#3f3f46] hover:text-[#71717a] transition-colors"
             >
-              <Search className="h-4 w-4" />
+              <Search className="h-3.5 w-3.5" />
             </button>
           )}
-
-          <div className="mx-1 h-4 w-px bg-[#27272a]" />
 
           {navLinks.map((item) => {
             const isActive =
@@ -89,10 +81,10 @@ export function Navbar() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "inline-flex items-center rounded-md px-2.5 py-1.5 text-[13px] font-medium transition-colors",
+                  "px-2 py-1 text-[13px] transition-colors",
                   isActive
-                    ? "text-[#f1f1f1] bg-[#1a1a1a]"
-                    : "text-[#71717a] hover:text-[#a1a1aa] hover:bg-[#1a1a1a]"
+                    ? "text-[#d4d4d8]"
+                    : "text-[#3f3f46] hover:text-[#71717a]"
                 )}
               >
                 {item.label}
